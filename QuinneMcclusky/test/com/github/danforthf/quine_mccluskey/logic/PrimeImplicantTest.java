@@ -37,7 +37,30 @@ public class PrimeImplicantTest {
      */
     @Test
     public void testPrimeImplicantIntInt() {
-        fail("Not yet implemented"); // TODO
+        // Expected value is "[ 0 1 0 0 1 0 ]".
+        // Actual value is call to expressionStr().
+        String testStrExp = "[ 0 1 0 0 1 0 ]";
+        PrimeImplicant p5 = new PrimeImplicant(18, 6);
+        assertEquals("Min(18) with 6 variables.", testStrExp, p5.expressionStr());
+        
+        // Expected value is "Min(18)". Actual value is call to mintermStr
+        String testStrMin = "Min(18)";
+        assertEquals("Minterm of 18.", testStrMin, p5.mintermStr());
+        
+        PrimeImplicant badPrimImp = null;
+        try {
+            badPrimImp = new PrimeImplicant(33, 3);
+            fail("Illegal minterm, should not be constructed.");
+        } catch (IllegalArgumentException e) {
+            assertNull("Illegal argument.", badPrimImp);
+        }
+        
+        try {
+            badPrimImp = new PrimeImplicant(10, -1);
+            fail("Illegal number of variables.");
+        } catch (IllegalArgumentException e) {
+            assertNull("Illegal argument.", badPrimImp);
+        }
     }
 
     /**
@@ -45,7 +68,25 @@ public class PrimeImplicantTest {
      */
     @Test
     public void testPrimeImplicantPrimeImplicantPrimeImplicant() {
-        fail("Not yet implemented"); // TODO
+        PrimeImplicant badPrimeImp = null;
+        try {
+            badPrimeImp = new PrimeImplicant(p1, p2);
+            fail("Should not have been constructed. Bad arguments.");
+        } catch (IllegalArgumentException e) {
+            // Expected value is null.
+            assertNull("Can not be reduced/combined.", badPrimeImp);
+        }
+        
+        PrimeImplicant combined = new PrimeImplicant(p1, p3);
+        String testStrExp = "[ 0 0 0 - ]";
+        // Expected value is testStrExp.
+        // Actual value is call to expressionStr().
+        assertEquals("Min(0, 1) with 4 variables.", testStrExp, combined.expressionStr());
+        String testStrMin = "Min(0, 1)";
+        // Expected value is testStrMin. Actual value is call to mintermStr().
+        assertEquals("Minterms 0 and 1 with 4 varaiables.", testStrMin, combined.mintermStr());
+        
+        
     }
 
     /**
@@ -94,12 +135,5 @@ public class PrimeImplicantTest {
         assertEquals("4 variable expression.", 4, p3.getNumOfVariables());
     }
 
-    /**
-     * Test method for {@link com.github.danforthf.quine_mccluskey.logic.PrimeImplicant#getMinterms()}.
-     */
-    @Test
-    public void testGetMinterms() {
-        fail("Not yet implemented"); // TODO
-    }
 
 }

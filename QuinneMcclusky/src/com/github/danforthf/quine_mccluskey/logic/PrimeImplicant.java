@@ -1,5 +1,6 @@
 package com.github.danforthf.quine_mccluskey.logic;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class PrimeImplicant {
@@ -40,6 +41,8 @@ public class PrimeImplicant {
         this.numOfVariables = numOfVariables;
 
         variableExpression = findExpression();
+        
+        this.reduced = false;
 
     }
 
@@ -76,6 +79,7 @@ public class PrimeImplicant {
         }
 
         this.variableExpression = findExpression();
+        this.reduced = false;
     }
 
     /**
@@ -211,16 +215,6 @@ public class PrimeImplicant {
     }
 
     /**
-     * Returns a LinkedList containing every numeric minterm representation
-     * covered by the prime implicant.
-     * 
-     * @return a LinkedList containing each numeric minterm representation.
-     */
-    public LinkedList<Integer> getMinterms() {
-        return minterms;
-    }
-
-    /**
      * Returns true if the prime implicant has been reduced and thus covered by
      * a new prime implicant.
      * 
@@ -240,5 +234,56 @@ public class PrimeImplicant {
     public void setReduced(boolean reduced) {
         this.reduced = reduced;
     }
+    
+    /**
+     * Returns the number of minterms expressed by the implicant.
+     * @return number of minterms
+     */
+    public int implicantSize() {
+        return minterms.size();
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((minterms == null) ? 0 : minterms.hashCode());
+        result = prime * result + numOfVariables;
+        result = prime * result + (reduced ? 1231 : 1237);
+        result = prime * result + Arrays.hashCode(variableExpression);
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PrimeImplicant other = (PrimeImplicant) obj;
+        if (minterms == null) {
+            if (other.minterms != null)
+                return false;
+        } else if (!minterms.equals(other.minterms))
+            return false;
+        if (numOfVariables != other.numOfVariables)
+            return false;
+        if (reduced != other.reduced)
+            return false;
+        if (!Arrays.equals(variableExpression, other.variableExpression))
+            return false;
+        return true;
+    }
+    
+    
 
 }
