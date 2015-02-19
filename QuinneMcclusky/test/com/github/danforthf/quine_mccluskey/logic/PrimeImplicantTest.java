@@ -16,6 +16,7 @@ public class PrimeImplicantTest {
     
     private PrimeImplicant p1;
     private PrimeImplicant p2;
+    private PrimeImplicant p3;
 
     /**
      * @throws java.lang.Exception
@@ -24,6 +25,8 @@ public class PrimeImplicantTest {
     public void setUp() throws Exception {
         p1 = new PrimeImplicant(0, 4);
         p2 = new PrimeImplicant(15, 4);
+        
+        p3 = new PrimeImplicant(1, 4);
     }
 
     /**
@@ -54,6 +57,11 @@ public class PrimeImplicantTest {
         
         // Expected value is testStr2. Actual value is call to expressionStr().
         assertEquals("Min(15)", testStr2, p2.expressionStr());
+        
+        String testStr3 = "[ 0 0 0 - ]";
+        PrimeImplicant p13 = new PrimeImplicant(p1, p3);
+        // Expected value is testStr3. Actual value is call to expressionStr().
+        assertEquals("Min(0, 1)", testStr3, p13.expressionStr());
     }
 
     /**
@@ -73,7 +81,7 @@ public class PrimeImplicantTest {
     }
 
     /**
-     * Test method for {@link com.github.danforthf.quine_mccluskey.logic.PrimeImplicant#getMinTerms()}.
+     * Test method for {@link com.github.danforthf.quine_mccluskey.logic.PrimeImplicant#getMinterms()}.
      */
     @Test
     public void testGetMinTerms() {
