@@ -17,6 +17,7 @@ public class PrimeImplicantTest {
     private PrimeImplicant p1;
     private PrimeImplicant p2;
     private PrimeImplicant p3;
+    private PrimeImplicant p4;
 
     /**
      * @throws java.lang.Exception
@@ -27,6 +28,8 @@ public class PrimeImplicantTest {
         p2 = new PrimeImplicant(15, 4);
         
         p3 = new PrimeImplicant(1, 4);
+        p4 = new PrimeImplicant(1, 3);
+        
     }
 
     /**
@@ -69,7 +72,14 @@ public class PrimeImplicantTest {
      */
     @Test
     public void testReducesWith() {
-        fail("Not yet implemented"); // TODO
+        // Expected value is true. Actual value is call to reducesWith().
+        assertTrue("Min(0, 1) is reduceable.", p1.reducesWith(p3));
+        
+        // Expected value is false. Actual value is call to reducesWith().
+        assertFalse("Min(0, 15) is not reduceable.", p1.reducesWith(p2));
+        
+        // Expected value is false. Actual value is call to reducesWith().
+        assertFalse("Different number of variables in each expression.", p3.reducesWith(p4));
     }
 
     /**
@@ -77,14 +87,18 @@ public class PrimeImplicantTest {
      */
     @Test
     public void testGetNumOfVariables() {
-        fail("Not yet implemented"); // TODO
+        // Expected value is 3. Actual value is call to numOfVariables().
+        assertEquals("3 variable expression.", 3, p4.getNumOfVariables());
+        
+        // Expected value is 4. Actual value is call to numOfVariables().
+        assertEquals("4 variable expression.", 4, p3.getNumOfVariables());
     }
 
     /**
      * Test method for {@link com.github.danforthf.quine_mccluskey.logic.PrimeImplicant#getMinterms()}.
      */
     @Test
-    public void testGetMinTerms() {
+    public void testGetMinterms() {
         fail("Not yet implemented"); // TODO
     }
 
